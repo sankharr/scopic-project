@@ -8,7 +8,6 @@
 const axios = require("axios");
 
 class LeagueService {
-
   constructor() {
     this.matches = [];
   }
@@ -67,20 +66,97 @@ class LeagueService {
    * @returns {Array} List of teams representing the leaderboard.
    */
   getLeaderboard() {
-    let leaderboardArray = []
+    let leaderboardArray = [];
     let arrayStoreCount = 0;
     let teamArray = [];
     let teamIndex;
+
     for (let i = 0; i < this.matches.length; i++) {
-        // homeTeam data calculation
-        teamIndex = teamArray.indexOf(this.matches[i].homeTeam);
-        if (teamIndex == -1){
-            let tempArrayA = [this.matches[i].homeTeam, 1, this.matches[i].homeTeamScore, this.matches[i].awayTeamScore]
-        }
-        if(leaderboardArray[arrayStoreCount] == null){
-            let tempArray = []
-        }
+      // homeTeam data calculation
+      teamIndex = teamArray.indexOf(this.matches[i].homeTeam);
+      // if the home team doesn't exist in leaderboardArray
+      if (teamIndex == -1) {
+        let tempObject = {
+          teamName: this.matches[i].homeTeam,
+          matchesPlayed: 1,
+          goalsFor: this.matches[i].homeTeamScore,
+          goalsAgainst: this.matches[i].awayTeamScore,
+          points:
+            this.matches[i].homeTeamScore > this.matches[i].awayTeamScore
+              ? 3
+              : this.matches[i].homeTeamScore === this.matches[i].awayTeamScore
+              ? 1
+              : 0,
+        };
+        teamArray[arrayStoreCount] = this.matches[i].homeTeam;
+        leaderboardArray[arrayStoreCount] = tempObject;
+        arrayStoreCount++;
+      }
+      // if the home team already exist in leaderboard array
+      else {
+        let tempObject = {
+          teamName: this.matches[i].homeTeam,
+          matchesPlayed: leaderboardArray[teamIndex].matchesPlayed + 1,
+          goalsFor:
+            leaderboardArray[teamIndex].goalsFor +
+            this.matches[i].homeTeamScore,
+          goalsAgainst:
+            leaderboardArray[teamIndex].goalsAgainst +
+            this.matches[i].awayTeamScore,
+          points:
+            leaderboardArray[teamIndex].points +
+            (this.matches[i].homeTeamScore > this.matches[i].awayTeamScore
+              ? 3
+              : this.matches[i].homeTeamScore === this.matches[i].awayTeamScore
+              ? 1
+              : 0),
+        };
+        leaderboardArray[teamIndex] = tempObject;
+      }
+
+      // awayTeam data calculation
+      teamIndex = teamArray.indexOf(this.matches[i].awayTeam);
+      // if the away team doesn't exist in leaderboardArray
+      if (teamIndex == -1) {
+        let tempObject = {
+          teamName: this.matches[i].awayTeam,
+          matchesPlayed: 1,
+          goalsFor: this.matches[i].awayTeamScore,
+          goalsAgainst: this.matches[i].homeTeamScore,
+          points:
+            this.matches[i].awayTeamScore > this.matches[i].homeTeamScore
+              ? 3
+              : this.matches[i].homeTeamScore === this.matches[i].awayTeamScore
+              ? 1
+              : 0,
+        };
+        teamArray[arrayStoreCount] = this.matches[i].awayTeam;
+        leaderboardArray[arrayStoreCount] = tempObject;
+        arrayStoreCount++;
+      }
+      // if the awayteam already exist in leaderboard array
+      else {
+        let tempObject = {
+          teamName: this.matches[i].awayTeam,
+          matchesPlayed: leaderboardArray[teamIndex].matchesPlayed + 1,
+          goalsFor:
+            leaderboardArray[teamIndex].goalsFor +
+            this.matches[i].awayTeamScore,
+          goalsAgainst:
+            leaderboardArray[teamIndex].goalsAgainst +
+            this.matches[i].homeTeamScore,
+          points:
+            leaderboardArray[teamIndex].points +
+            (this.matches[i].awayTeamScore > this.matches[i].homeTeamScore
+              ? 3
+              : this.matches[i].homeTeamScore === this.matches[i].awayTeamScore
+              ? 1
+              : 0),
+        };
+        leaderboardArray[teamIndex] = tempObject;
+      }
     }
+    return leaderboardArray;
   }
 
   /**

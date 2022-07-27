@@ -38,7 +38,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const calculateDate = (timeStamp) => {
   const date = new Date(timeStamp);
-  console.log("date", date);
   const day = date.getDate();
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
@@ -62,9 +61,11 @@ export default function LeagueScheduleTable() {
     await leagueObject.fetchData().then(async () => {
       let data = leagueObject.getMatches();
       setMatchData(data);
+      let data2 = leagueObject.getLeaderboard();
       //  let leagueObject = new LeagueService();
       //   leagueObject.getMatches();
       console.log("dta => ", data);
+      console.log('data2', data2)
     });
   }, []);
   return (
