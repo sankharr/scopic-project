@@ -1,0 +1,20 @@
+/* .MuiContainer-root{
+ padding-right: 0;   
+} */
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #F6F7F7;
+    /* padding-right: 40px; */
+    height: 40px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 40px;
+    padding-top: 10px;
+}
+
