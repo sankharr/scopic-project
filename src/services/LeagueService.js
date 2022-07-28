@@ -157,7 +157,57 @@ class LeagueService {
       }
     }
     leaderboardArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
+    leaderboardArray = this.tiebreakerCalculation(leaderboardArray)
     return leaderboardArray;
+  }
+
+  tiebreakerCalculation(array) {
+    let needToSwap = false;
+    let tempLeaderboardArray = array;
+    for (let i=0; i < tempLeaderboardArray.length - 1; i++){
+        needToSwap = false;
+        if (tempLeaderboardArray[i].points === tempLeaderboardArray[i+1].points) {
+            needToSwap = this.findHeadtoHeadMatch(tempLeaderboardArray[i].teamName, tempLeaderboardArray[i+1].teamName);
+            if (needToSwap) {
+                tempLeaderboardArray = this.swapElements(i, i+1, tempLeaderboardArray)
+
+            }
+        }
+    }
+  }
+
+  findHeadtoHeadMatch(teamA, teamB) {
+    let scoreTeamA, scoreTeamB;
+    for (let k=0; k < this.matches.length; k++) {
+        if (this.matches[k].homeTeam === teamA || this.matches[k].awayTeam == teamA) {
+            if (this.matches[k].homeTeam === teamB || this.matches[k].awayTeam == teamB) {
+
+                if(this.matches[k].homeTeam === teamA){
+                    // homeTeam = teamA;
+                    scoreTeamA = this.matches[k].homeTeamScore;
+                    scoreTeamB = this.matches[k].awayTeamScore;
+                }
+                else {
+                    scoreTeamA = this.matches[k].awayTeamScore;
+                    scoreTeamB = this.matches[k].homeTeamScore;
+                }
+
+                if(scoreTeamA < scoreTeamB){
+                    return true;
+                }
+            }
+        }
+    }
+    return -1;
+  }
+
+  swapElements (indexA, indexB, array) {
+    let tempArray = array;
+    let tempElement = tempArray[indexA];
+    tempArray[indexA] = tempArray[indexB];
+    tempArray[indexB] = tempElement;
+    return tempArray
+    
   }
 
   /**

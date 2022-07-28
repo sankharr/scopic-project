@@ -26,12 +26,11 @@ import LeaderboardIcon from "../assets/leaderboard.png";
 
 const StyledAppbar = styled(AppBar)(({ theme }) => ({
   backgroundColor: "#025FEB",
+  paddingRight: "unset",
 }));
 
-const StyledButton = styled(Button)(({ theme }) => ({
-//   backgroundColor: "#025FEB",
-paddingRight: 'unset',
-paddingLeft: '40px'
+const StyledContainer = styled(Container)(({ theme }) => ({
+  paddingRight: "unset",
 }));
 
 const pages = [
@@ -46,11 +45,11 @@ const pages = [
 const Header = () => {
   return (
     <StyledAppbar position="static" className="Appbar">
-      <Container maxWidth="xl">
+      <StyledContainer maxWidth="xl">
         <Toolbar disableGutters>
           {/* Logo */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <img src={Logo} />
+            <img src={Logo} style={{ width: "110px" }} />
           </Box>
 
           {/* Logo - Mobile View */}
@@ -59,15 +58,16 @@ const Header = () => {
           </Box>
 
           {/* Navbar buttons */}
-          <Box sx={{ flexGrow: 0, display: "flex", flexDirection: "row" }}>
+          <Box sx={{ flexGrow: 0, display: "flex", flexDirection: "row", marginRight: '8px' }}>
             {pages.map((page) => (
               <Link
                 key={page.name}
                 underline="none"
                 component={RouterLink}
                 to={page.routerPath}
+                sx={{marginLeft: '24px'}}
               >
-                <StyledButton
+                <Button
                   variant="text"
                   sx={{ color: "white", display: "block" }}
                 >
@@ -75,17 +75,17 @@ const Header = () => {
                     <img src={page.icon} style={{ height: "25px" }} />
                     <Typography
                       variant="body1"
-                      sx={{ textTransform: "capitalize" }}
+                      sx={{ textTransform: "capitalize", fontFamily: ["Open sans"] }}
                     >
                       {page.name}
                     </Typography>
                   </Box>
-                </StyledButton>
+                </Button>
               </Link>
             ))}
           </Box>
         </Toolbar>
-      </Container>
+      </StyledContainer>
     </StyledAppbar>
   );
 };
