@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 
 // pages
 import LeagueSchedule from "../pages/LeagueSchedule";
-import Leaderboard from "../pages/Leaderboard";
+import Leaderboard from "../pages/Leaderboard/Leaderboard";
 import NotFound from "../pages/NotFound";
 
 export default function MainLayout() {

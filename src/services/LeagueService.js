@@ -156,6 +156,7 @@ class LeagueService {
         leaderboardArray[teamIndex] = tempObject;
       }
     }
+    leaderboardArray.sort((a, b) => (a.points < b.points) ? 1 : -1)
     return leaderboardArray;
   }
 

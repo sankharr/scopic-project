@@ -16,24 +16,29 @@ import { useState, useEffect } from "react";
 import LeagueService from "../services/LeagueService";
 import { Typography } from "@mui/material";
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
+const StyledTableHeadCell = styled(TableCell)(({ theme }) => ({
+  backgroundColor: "#E4EDF2",
+  fontWeight: "bold",
+  fontFamily: ["Open sans"],
+  fontSize: "12px",
+  paddingTop: 'unset',
+  paddingBottom: 'unset',
+  height: '39.5px'
 }));
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
+const StyledTableDataCell = styled(TableCell)(({ theme }) => ({
+  fontSize: "14px",
+  fontFamily: ["Open sans"],
+  paddingTop: '11px',
+  paddingBottom: '11px'
+}));
+
+const StyledBoldTableCell = styled(TableCell)(({ theme }) => ({
+  fontWeight: "bold",
+  fontFamily: ["Open sans"],
+  fontSize: "16px",
+  //   paddingRight: "30px",
+  //   width: '20px'
 }));
 
 const calculateDate = (timeStamp) => {
@@ -61,50 +66,24 @@ export default function LeagueScheduleTable() {
     await leagueObject.fetchData().then(async () => {
       let data = leagueObject.getMatches();
       setMatchData(data);
-      let data2 = leagueObject.getLeaderboard();
+      //   let data2 = leagueObject.getLeaderboard();
       //  let leagueObject = new LeagueService();
       //   leagueObject.getMatches();
       console.log("dta => ", data);
-      console.log('data2', data2)
+      //   console.log('data2', data2)
     });
   }, []);
   return (
-    // <TableContainer component={Paper}>
-    //   <Table sx={{ minWidth: 700 }} aria-label="customized table">
-    //     <TableHead>
-    //       <TableRow>
-    //         <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-    //         <StyledTableCell align="right">Calories</StyledTableCell>
-    //         <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-    //         <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-    //         <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
-    //       </TableRow>
-    //     </TableHead>
-    //     <TableBody>
-    //       {rows.map((row) => (
-    //         <StyledTableRow key={row.name}>
-    //           <StyledTableCell component="th" scope="row">
-    //             {row.name}
-    //           </StyledTableCell>
-    //           <StyledTableCell align="right">{row.calories}</StyledTableCell>
-    //           <StyledTableCell align="right">{row.fat}</StyledTableCell>
-    //           <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-    //           <StyledTableCell align="right">{row.protein}</StyledTableCell>
-    //         </StyledTableRow>
-    //       ))}
-    //     </TableBody>
-    //   </Table>
-    // </TableContainer>
-
-    // <TableContainer component={Paper}>
-    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <Table aria-label="simple table"  sx={{paddingTop: 'unset'}}>
       <TableHead>
         <TableRow>
-          <TableCell>Date/Time</TableCell>
-          <TableCell align="left">Stadium</TableCell>
-          <TableCell align="right">Home Team</TableCell>
-          <TableCell align="right"></TableCell>
-          <TableCell align="left">Away Team</TableCell>
+          <StyledTableHeadCell sx={{ display: {sm: 'none' ,md: 'table-cell'}}}>Date/Time</StyledTableHeadCell>
+          <StyledTableHeadCell align="left" sx={{ display: {sm: 'none', md: 'none' ,lg: 'table-cell'}}}>Stadium</StyledTableHeadCell>
+          <StyledTableHeadCell align="left"></StyledTableHeadCell>
+          <StyledTableHeadCell align="right">Home Team</StyledTableHeadCell>
+          <StyledTableHeadCell align="right"></StyledTableHeadCell>
+          <StyledTableHeadCell align="left">Away Team</StyledTableHeadCell>
+          <StyledTableHeadCell align="right"></StyledTableHeadCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -113,34 +92,70 @@ export default function LeagueScheduleTable() {
             key={row.stadium + row.awayTeam}
             sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
           >
-            <TableCell align="right">
-              <Grid container>
-                <Grid item xs={7}>
+            <StyledTableDataCell sx={{ display: {sm: 'none' ,md: 'table-cell'}}}>
+              <Grid container direction="column" justifyContent="flex-start" >
+                <Grid item xs="auto" direction="column">
                   <Typography>{calculateDate(row.matchDate)}</Typography>
                 </Grid>
-                <Grid item xs={7}>
+                <Grid item xs="auto" alignItems="end">
                   <Typography>{calculateTime(row.matchDate)}</Typography>
                 </Grid>
               </Grid>
-            </TableCell>
-            <TableCell align="left">{row.stadium}</TableCell>
-            <TableCell align="right">
-              <Grid container>
-                <Grid item xs={3}>
+            </StyledTableDataCell>
+            <StyledTableDataCell align="left" sx={{ display: {sm: 'none', md: 'none' ,lg: 'table-cell'}}}>
+              {row.stadium}
+            </StyledTableDataCell>
+            <StyledBoldTableCell align="right" padding="none">
+              {row.homeTeam}
+            </StyledBoldTableCell>
+            <StyledTableDataCell align="right" width="70px">
+              <img
+                className="flag"
+                src={`https://countryflagsapi.com/png/${row.homeTeam}`}
+                style={{marginTop: '5.5px'}}
+              />
+            </StyledTableDataCell>
+            {/* <StyledBoldTableCell align="right">
+              <Grid
+                container
+                direction="row"
+                justifyContent="right"
+                wrap="wrap"
+              >
+                <Grid item xs={3} alignSelf="center">
                   {row.homeTeam}
                 </Grid>
-                <Grid item xs={3}>
+                <Grid
+                  item
+                  xs={3}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginLeft: "20px",
+                  }}
+                >
                   <img
                     className="flag"
                     src={`https://countryflagsapi.com/png/${row.homeTeam}`}
                   />
                 </Grid>
               </Grid>
-            </TableCell>
-            <TableCell align="right">
-              {row.homeTeamScore}:{row.awayTeamScore}
-            </TableCell>
-            <TableCell align="right">
+            </StyledBoldTableCell> */}
+            <StyledBoldTableCell align="center" padding="none">
+              {row.homeTeamScore} : {row.awayTeamScore}
+            </StyledBoldTableCell>
+            <StyledTableDataCell align="left" width="70px">
+              <img
+                className="flag"
+                src={`https://countryflagsapi.com/png/${row.awayTeam}`}
+                style={{marginTop: '5.5px'}}
+              />
+            </StyledTableDataCell>
+            <StyledBoldTableCell align="left" padding="none">
+              {row.awayTeam}
+            </StyledBoldTableCell>
+            
+            {/* <StyledBoldTableCell align="left">
               <Grid container>
                 <Grid item xs={3}>
                   <img
@@ -152,8 +167,7 @@ export default function LeagueScheduleTable() {
                   {row.awayTeam}
                 </Grid>
               </Grid>
-            </TableCell>
-            {/* <TableCell align="left">{row.awayTeam}</TableCell> */}
+            </StyledBoldTableCell> */}
           </TableRow>
         ))}
       </TableBody>

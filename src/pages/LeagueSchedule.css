@@ -1,19 +1,18 @@
-.pageHeading {
+/* .pageHeading {
     font-size: 24px;
     margin-top: 60px;
     margin-bottom: 20px;
     text-align: center;
     color: #182C62;
-}
+} */
 
 /* .MuiTable-root {
     font-size: xx-large;
     border-color: red;
 } */
 
-.MuiTableRow-head {
+/* .MuiTableRow-head {
     background-color: #E4EDF2;
-    /* font-size: 12px; */
     color: #4B5C68;
 }
 
@@ -24,7 +23,7 @@
 
 .MuiTableRow-root:nth-of-type(even){
     background-color: #F6F7F7;
-}
+} */
 
 .flag {
    width: 53px;

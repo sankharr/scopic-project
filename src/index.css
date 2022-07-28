@@ -2,4 +2,36 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Open Sans", sans-serif;
 }
+
+.pageHeading {
+    font-size: 24px;
+    margin-top: 60px;
+    margin-bottom: 4px;
+    text-align: center;
+    color: #182C62;
+    font-weight: 1000;
+}
+
+.MuiTableHead-root {
+    background-color: #E4EDF2;
+    font-weight: bold;
+    font-size: larger;
+}
+
+
+.MuiTableRow-root:nth-of-type(even){
+    background-color: #F6F7F7;
+}
+
+
+.MuiTableCell-head {
+    font-size: larger;
+    font-weight: 900;
+}
+
+/* .MuiAppBar-root {
+    background-color: #025FEB;
+} */
+

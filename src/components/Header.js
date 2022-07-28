@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import Link from "@mui/material/Link";
 import { Link as RouterLink } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 
 // styling
 import "./styles/Header.css";
@@ -22,6 +23,16 @@ import "./styles/Header.css";
 import Logo from "../assets/logo.svg";
 import ScheduleIcon from "../assets/schedule.png";
 import LeaderboardIcon from "../assets/leaderboard.png";
+
+const StyledAppbar = styled(AppBar)(({ theme }) => ({
+  backgroundColor: "#025FEB",
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+//   backgroundColor: "#025FEB",
+paddingRight: 'unset',
+paddingLeft: '40px'
+}));
 
 const pages = [
   {
@@ -34,7 +45,7 @@ const pages = [
 
 const Header = () => {
   return (
-    <AppBar position="static" className="Appbar">
+    <StyledAppbar position="static" className="Appbar">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* Logo */}
@@ -48,24 +59,34 @@ const Header = () => {
           </Box>
 
           {/* Navbar buttons */}
-          <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 0, display: "flex", flexDirection: "row" }}>
             {pages.map((page) => (
-              <Link key={page.name} underline="none" component={RouterLink} to={page.routerPath}>
-                <Button
+              <Link
+                key={page.name}
+                underline="none"
+                component={RouterLink}
+                to={page.routerPath}
+              >
+                <StyledButton
                   variant="text"
-                  sx={{ ml: "40px", color: "white", display: "block" }}
+                  sx={{ color: "white", display: "block" }}
                 >
                   <Box sx={{ display: { xs: "flex", md: "flex" }, gap: 1 }}>
                     <img src={page.icon} style={{ height: "25px" }} />
-                    <Typography variant="body1">{page.name}</Typography>
+                    <Typography
+                      variant="body1"
+                      sx={{ textTransform: "capitalize" }}
+                    >
+                      {page.name}
+                    </Typography>
                   </Box>
-                </Button>
+                </StyledButton>
               </Link>
             ))}
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </StyledAppbar>
   );
 };
 export default Header;

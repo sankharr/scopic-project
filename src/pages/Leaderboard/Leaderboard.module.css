@@ -1,0 +1,34 @@
+.tableHead {
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.nonBoldedData {
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+}
+
+.boldedData {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.pointsCell{
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #025FEB;
+}
+
+.flag {
+   width: 53px;
+   height: 37px; 
+}
+
+.homeTeamCell{
+    
+    display: flex;
+    align-content: flex-end;
+}

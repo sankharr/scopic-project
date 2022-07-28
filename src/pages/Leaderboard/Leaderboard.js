@@ -7,26 +7,21 @@ import Container from "@mui/material/Container";
 import { Typography } from "@mui/material";
 
 // styles
-import "./LeagueSchedule.css";
+import styles from "./Leaderboard.module.css";
 
 // components
-import LeagueScheduleTable from "./LeagueScheduleTable";
+import LeaderboardTable from "./LeaderboardTable";
 
-
-const StyledGrid = styled(Grid)(({ theme }) => ({
-    paddingTop: 'unset'
-  }));
-
-export default function LeagueSchedule() {
+export default function Leaderboard() {
   return (
     <Box>
       <Container>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <p className="pageHeading">League Schedule</p>
+            <p className="pageHeading">League Standings</p>
           </Grid>
           <Grid item xs={12}>
-            <LeagueScheduleTable/>
+            <LeaderboardTable />
           </Grid>
           {/* <Grid item xs={4}>
             <Item>xs=4</Item>

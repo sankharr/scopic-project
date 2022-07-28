@@ -10,7 +10,7 @@ import Picture from "../assets/404.png";
 export default function NotFound() {
   return (
     <Box>
-      <Container>
+      <Container sx={{marginTop: {sm: '20vh', md: '20vh', lg: '8vh'}}}>
         <img className="image404" src={Picture} />
       </Container>
     </Box>
